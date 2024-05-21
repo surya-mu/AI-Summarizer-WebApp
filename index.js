@@ -1,7 +1,12 @@
 const express = require("express");
+const cors = require("cors");
 const summarizeText = require("./summarize");
+
 const app = express();
 const port = 3000;
+
+// Use CORS middleware
+app.use(cors());
 
 // Serve static files from the 'docs' directory
 app.use(express.static("docs"));
