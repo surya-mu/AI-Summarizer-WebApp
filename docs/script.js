@@ -21,7 +21,7 @@ async function submitData() {
   const text_to_summarize = textArea.value;
 
   try {
-    const response = await fetch("/summarize", {
+    const response = await fetch("https://ai-summarizer-webapp.onrender.com", { // update this URL
       method: "POST",
       headers: {
         "Content-Type": "application/json"
