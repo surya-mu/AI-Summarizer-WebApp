@@ -1,21 +1,21 @@
-const axios = require('axios');
+const axios = require("axios");
 
 async function summarizeText(text) {
-  let data = JSON.stringify({
-    "inputs": text,
-    "parameters": {
-      "max_length": 100,
-      "min_length": 30
+  const data = JSON.stringify({
+    inputs: text,
+    parameters: {
+      max_length: 100,
+      min_length: 30
     }
   });
 
-  let config = {
-    method: 'post',
+  const config = {
+    method: "post",
     maxBodyLength: Infinity,
-    url: 'https://api-inference.huggingface.co/models/facebook/bart-large-cnn',
+    url: "https://api-inference.huggingface.co/models/facebook/bart-large-cnn",
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + process.env['ACCESS_TOKEN']
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + process.env.ACCESS_TOKEN
     },
     data: data
   };
@@ -24,8 +24,7 @@ async function summarizeText(text) {
     const response = await axios.request(config);
     return response.data[0].summary_text;
   } catch (error) {
-    console.log(error);
-    throw new Error('Error summarizing text'); // Throw error to handle in the catch block of server.js
+    throw new Error(error);
   }
 }
 

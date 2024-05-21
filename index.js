@@ -1,21 +1,23 @@
-const express = require('express');
-const summarizeText = require('./summarize.js');
+const express = require("express");
+const summarizeText = require("./summarize");
 const app = express();
 const port = 3000;
 
-app.use(express.json());
-app.use(express.static('public')); // Serve static files from the 'public' directory
+// Serve static files from the 'docs' directory
+app.use(express.static("docs"));
 
-app.post('/summarize', (req, res) => {
+app.use(express.json());
+
+app.post("/summarize", (req, res) => {
   const text = req.body.text_to_summarize;
 
   summarizeText(text)
-    .then(response => {
-      res.send(response);
+    .then((response) => {
+      res.send({ summary: response });
     })
-    .catch(error => {
-      console.log(error.message);
-      res.status(500).send('Error summarizing text');
+    .catch((error) => {
+      console.error(error.message);
+      res.status(500).send("Error summarizing text");
     });
 });
 
