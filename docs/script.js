@@ -30,6 +30,9 @@ async function submitData() {
     });
 
     const data = await response.json();
+    if (!data.hasOwnProperty('summary')) {
+      throw new Error('Invalid response format: missing summary');
+    }
     summarizedTextArea.value = data.summary;
     submitButton.classList.remove("submit-button--loading");
   } catch (error) {
